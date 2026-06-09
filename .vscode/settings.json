@@ -1,0 +1,11 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "dependencies/lombok.jar",
+        "dependencies/jackson-annotations-2.17.2.jar",
+        "dependencies/jackson-core-2.17.2.jar",
+        "dependencies/jackson-databind-2.17.2.jar",
+        "dependencies/log4j-api-2.25.3.jar",
+        "dependencies/log4j-core-2.25.4.jar"
+    ]
+}
