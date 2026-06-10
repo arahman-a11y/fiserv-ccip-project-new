@@ -1,38 +1,63 @@
 package novelvox.common;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.FileInputStream;
+import novelvox.pojo.user.stories.CustomerDetails;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PropertyUtil {
 
-    public static void main(String[] args) throws Exception {
+ private static final Properties PROPERTIES = new Properties();
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+       private static final Logger logger = LogManager.getLogger(PropertyUtil.class);
 
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("D:\\Fiserv Premier IVR\\com\\property\\config.properties"));
+    static {
+        try (InputStream inputStream =
+        PropertyUtil.class.getClassLoader()
+        .getResourceAsStream("property/application.properties")) {
+            System.out.println(
+    PropertyUtil.class.getClassLoader()
+        .getResource("property/application.properties")
+);
+          
+            System.out.println("Loading application.properties");
+            System.out.println(inputStream);
+            if (inputStream == null) {
+                throw new RuntimeException("application.properties not found");
+            }
 
-        String jsonString = properties.getProperty("user.details");
+            PROPERTIES.load(inputStream);
+              System.out.println("PROPERTY" + getProperty("fiserv.dataset"));
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(jsonString);
-
-        // Read primitive fields
-        int id = root.get("id").asInt();
-        String name = root.get("name").asText();
-
-        // Read nested object
-        String city = root.get("address").get("city").asText();
-
-        // Read array
-        JsonNode skills = root.get("skills");
-        for (JsonNode skill : skills) {
-            System.out.println(skill.asText());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load properties file", e);
         }
+    }
 
-        System.out.println("ID: " + id);
-        System.out.println("Name: " + name);
-        System.out.println("City: " + city);
+    public static String getProperty(String key) {
+        return PROPERTIES.getProperty(key);
+    }
+
+    public static List<CustomerDetails> getCustomers() {
+        try {
+            String json = getProperty("fiserv.dataset");
+
+            return OBJECT_MAPPER.readValue(
+                    json,
+                    new TypeReference<List<CustomerDetails>>() {
+                    }
+            );
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse customer dataset", e);
+        }
     }
 }  

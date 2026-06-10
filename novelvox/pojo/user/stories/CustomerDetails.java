@@ -2,51 +2,97 @@ package novelvox.pojo.user.stories;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CustomerDetails {
 
+    @JsonProperty("UniqueID")
     private String uniqueID;
+    
+    @JsonProperty("PhoneNumber")
     private List<String> phoneNumber;
+    @JsonProperty("AccountNumber")
     private String accountNumber;
+    @JsonProperty("Name")
     private String name;
+    @JsonProperty("Email")
     private String email;
+    @JsonProperty("HomePhone")
     private String homePhone;
+    @JsonProperty("CustomerSince")
     private String customerSince;
+    @JsonProperty("Value")
     private String value;
+    @JsonProperty("DOB")
     private String dob;
+    @JsonProperty("CellPhone")
     private String cellPhone;
+    @JsonProperty("Address")
     private String address;
+    @JsonProperty("IDType")
     private String idType;
+    @JsonProperty("Issuedate")
     private String issuedate;
+    @JsonProperty("SSN")
     private String ssn;
+    @JsonProperty("MaskedSSN")
     private String maskedSSN;
+    @JsonProperty("BusinessPhone")
     private String businessPhone;
+    @JsonProperty("IssuedBy")
     private String issuedBy;
+    @JsonProperty("Expiration")
     private String expiration;
+    @JsonProperty("FullName")
     private String fullName;
+    @JsonProperty("MemberNumber")
     private String memberNumber;
+    @JsonProperty("CIFNo")
     private String cifNo;
+    @JsonProperty("InterestRate")
     private String interestRate;
+    @JsonProperty("OrgNumber")
     private String orgNumber;
+    @JsonProperty("PersonNumber")
     private String personNumber;
+    @JsonProperty("BeneficiaryName")
     private String beneficiaryName;
+    @JsonProperty("Mobile")
     private String mobile;
+    @JsonProperty("PassKey")
     private String passKey;
+    @JsonProperty("Phrase")
     private String phrase;
+    @JsonProperty("Role")
     private String role;
+    @JsonProperty("Ownership")
     private String ownership;
+    @JsonProperty("CardNumber")
     private String cardNumber;
+    @JsonProperty("Street")
     private String street;
+    @JsonProperty("City")
     private String city;
+    @JsonProperty("State")
     private String state;
+    @JsonProperty("Zip")
     private String zip;
+    @JsonProperty("Switch")
     private String switchValue;
+    @JsonProperty("AccountsRelated")
     private String accountsRelated;
+    @JsonProperty("View")
     private String view;
+    @JsonProperty("MothersMaidenName")
     private String mothersMaidenName;
+    @JsonProperty("RiskIndicator")
     private String riskIndicator;
+    @JsonProperty("NamePriority")
     private String namePriority;
+    @JsonProperty("Test")
     private String test;
 
+    @JsonProperty("RandomQuestion")
     private List<RandomQuestion> randomQuestion;
 
     public CustomerDetails() {

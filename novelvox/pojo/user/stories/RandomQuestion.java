@@ -1,9 +1,14 @@
 package novelvox.pojo.user.stories;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class RandomQuestion {
 
+    @JsonProperty("Question")
     private String question;
+    @JsonProperty("Answer")
     private String answer;
+    @JsonProperty("colon")
     private String colon;
 
     public RandomQuestion() {

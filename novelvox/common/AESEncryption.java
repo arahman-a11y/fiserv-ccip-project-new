@@ -1,5 +1,16 @@
 package novelvox.common;
 
+import java.util.Base64;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.security.SecureRandom;
+import javax.crypto.Cipher;
+import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class AESEncryption {
    private static final Logger logger = LogManager.getLogger(AESEncryption.class);
    private static final String ALGO = "AES";

@@ -16,14 +16,14 @@ public interface CustomerService {
 
     public Boolean getCustomerInfo(String accountNumber);
 
-    public List<Account> getAccounts(String accountNumber, String accountType);
+    // public List<Account> getAccounts(String accountNumber, String accountType);
 
-    public Account getAccountDetails(String accountNumber, String depositId);
+    // public Account getAccountDetails(String accountNumber, String depositId);
 
-    public List<Transaction> getTransactions(String accountNumber, String depositId);
+    // public List<Transaction> getTransactions(String accountNumber, String depositId);
 
-    public List<Loan> getLoans(String accountNumber);
+    // public List<Loan> getLoans(String accountNumber);
 
-    public Loan getLoanDetails(String accountNumber, String loanId);
+    // public Loan getLoanDetails(String accountNumber, String loanId);
 
 }
