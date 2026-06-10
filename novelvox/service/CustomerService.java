@@ -14,7 +14,7 @@ public interface CustomerService {
 
     public Boolean authenticateCustomer(String customerInfo);
 
-    public Boolean getCustomerInfo(String accountNumber);
+    public CustomerDetails getCustomerInfoByAccountNumber(String accountNumber);
 
     // public List<Account> getAccounts(String accountNumber, String accountType);
 

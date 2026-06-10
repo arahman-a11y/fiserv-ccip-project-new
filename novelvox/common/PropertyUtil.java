@@ -23,19 +23,16 @@ public class PropertyUtil {
         try (InputStream inputStream =
         PropertyUtil.class.getClassLoader()
         .getResourceAsStream("property/application.properties")) {
-            System.out.println(
-    PropertyUtil.class.getClassLoader()
-        .getResource("property/application.properties")
-);
+            System.out.println("@@@" + PropertyUtil.class.getClassLoader().getResource("property/application.properties"));
           
             System.out.println("Loading application.properties");
-            System.out.println(inputStream);
+            //System.out.println(inputStream);
             if (inputStream == null) {
                 throw new RuntimeException("application.properties not found");
             }
 
             PROPERTIES.load(inputStream);
-              System.out.println("PROPERTY" + getProperty("fiserv.dataset"));
+              //System.out.println("PROPERTY" + getProperty("fiserv.dataset"));
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to load properties file", e);
