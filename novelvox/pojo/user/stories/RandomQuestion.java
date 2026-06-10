@@ -1,0 +1,46 @@
+package novelvox.pojo.user.stories;
+
+public class RandomQuestion {
+
+    private String question;
+    private String answer;
+    private String colon;
+
+    public RandomQuestion() {
+    }
+
+    public RandomQuestion(String question, String answer, String colon) {
+        this.question = question;
+        this.answer = answer;
+        this.colon = colon;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getColon() {
+        return colon;
+    }
+
+    public void setColon(String colon) {
+        this.colon = colon;
+    }
+
+    @Override
+    public String toString() {
+        return "RandomQuestion [question=" + question + ", answer=" + answer + ", colon=" + colon + "]";
+    }
+}

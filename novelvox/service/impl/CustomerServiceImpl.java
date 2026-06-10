@@ -2,20 +2,20 @@ package novelvox.service.impl;
 
 import java.util.List;
 
-import novelvox.pojo.user.stories.CustomerData;
+import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.service.CustomerService;
 
 public class CustomerServiceImpl implements CustomerService {
 
     
     @Override
-    public CustomerData searchByPhoneNumber(String phoneNumber) {
+    public CustomerDetails searchByPhoneNumber(String phoneNumber) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'searchByPhoneNumber'");
     }
 
     @Override
-    public CustomerData searchBySSN(String ssn) {
+    public CustomerDetails searchBySSN(String ssn) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'searchBySSN'");
     }

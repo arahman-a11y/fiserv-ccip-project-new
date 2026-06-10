@@ -2,13 +2,15 @@ package novelvox.service;
 
 import java.util.List;
 
-import novelvox.pojo.user.stories.CustomerData;
+import novelvox.pojo.user.stories.CustomerDetails;
+
+
 
 public interface CustomerService {
 
-    public CustomerData searchByPhoneNumber(String phoneNumber);
+    public CustomerDetails searchByPhoneNumber(String phoneNumber);
 
-    public CustomerData searchBySSN(String ssn);
+    public CustomerDetails searchBySSN(String ssn);
 
     public Boolean authenticateCustomer(String customerInfo);
 
