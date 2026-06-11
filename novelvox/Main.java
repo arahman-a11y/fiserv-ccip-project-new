@@ -16,8 +16,10 @@ public class Main {
                 // SymXResponse response = CustomerRPC.searchByAccountNumber("uniqueId123", "sequenceId456", "envId789",
                 //                  "80100001236");
                 // SymXResponse response2 = searchBySSN("uniqueId123", "sequenceId456", "envId789", "789-12-3456");
-                SymXResponse response = CustomerRPC.authenticateCustomer("uniqueId123", "sequenceId456", "envId789",
-                                  "456789010");
+                // SymXResponse response = CustomerRPC.authenticateCustomer("uniqueId123", "sequenceId456", "envId789",
+                //                   "456789010");
+                SymXResponse response = CustomerRPC.getDeposits("uniqueId123", "sequenceId456", "envId789",
+                                  "11111", null);
                 System.out.println(response);
         }
 }
