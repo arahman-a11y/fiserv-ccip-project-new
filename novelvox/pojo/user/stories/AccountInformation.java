@@ -7,6 +7,7 @@ public class AccountInformation {
     private List<Deposit> deposits;
     private List<Loan> loans;
     private List<DebitCard> debitCards;
+    
     public List<Deposit> getDeposits() {
         return deposits;
     }
