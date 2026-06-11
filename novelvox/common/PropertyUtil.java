@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.FpDataObject2;
+import novelvox.pojo.user.stories.Loan;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -80,6 +81,17 @@ public class PropertyUtil {
             return fpDataObject2;
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse fpDataObject2", e);
+        }
+    }
+
+    public static List<Loan> getLoansRecords() {
+        try {
+            String json = cleanJsonProperty(getProperty("fpDataObject2"));
+            FpDataObject2 fpDataObject2 = OBJECT_MAPPER.readValue(json, FpDataObject2.class);
+            logger.info("Loan records loaded successfully");
+            return fpDataObject2.getAccountInformation().getLoans();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse loan records", e);
         }
     }
 
