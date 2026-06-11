@@ -9,7 +9,7 @@ public class Loan {
     private String status;
     private String relationship;
     private String img;
-
+    private String loanId;
     private LoanDetails details;
     private List<TransactionHistory> transactionHistory;
     private List<Alert> alerts;
@@ -18,7 +18,7 @@ public class Loan {
     }
 
     public Loan(String accountNumber, String type, String opendate, String status, String relationship, String img,
-            LoanDetails details, List<TransactionHistory> transactionHistory, List<Alert> alerts) {
+            LoanDetails details, List<TransactionHistory> transactionHistory, List<Alert> alerts, String loanId) {
         this.accountNumber = accountNumber;
         this.type = type;
         this.opendate = opendate;
@@ -28,6 +28,7 @@ public class Loan {
         this.details = details;
         this.transactionHistory = transactionHistory;
         this.alerts = alerts;
+        this.loanId = loanId;
     }
 
     public String getAccountNumber() {
@@ -100,5 +101,13 @@ public class Loan {
 
     public void setAlerts(List<Alert> alerts) {
         this.alerts = alerts;
+    }
+
+    public String getLoanId() {
+        return loanId;
+    }
+
+    public void setLoanId(String loanId) {
+        this.loanId = loanId;
     }
 }

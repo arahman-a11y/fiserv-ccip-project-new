@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Deposit {
 
+    private String depositId;
     private String accountNumber;
     private String type;
     private String opendate;
@@ -20,7 +21,7 @@ public class Deposit {
     }
 
     public Deposit(String accountNumber, String type, String opendate, String status, String relationship,
-            String memoLedgerBalance, String img, DepositDetails details,
+            String memoLedgerBalance, String img, DepositDetails details, String depositId,
             List<TransactionHistory> transactionHistory, List<Alert> alerts) {
         this.accountNumber = accountNumber;
         this.type = type;
@@ -30,8 +31,17 @@ public class Deposit {
         this.memoLedgerBalance = memoLedgerBalance;
         this.img = img;
         this.details = details;
+        this.depositId = depositId;
         this.transactionHistory = transactionHistory;
         this.alerts = alerts;
+    }
+
+    public String getDepositId() {
+        return depositId;
+    }
+
+    public void setDepositId(String depositId) {
+        this.depositId = depositId;
     }
 
     public String getAccountNumber() {
