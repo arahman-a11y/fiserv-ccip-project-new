@@ -124,4 +124,12 @@ public class Loan {
     public void setLoanId(String loanId) {
         this.loanId = loanId;
     }
+
+    @Override
+    public String toString() {
+        return "Loan [accountNumber=" + accountNumber + ", type=" + type + ", opendate=" + opendate + ", status="
+                + status + ", relationship=" + relationship + ", img=" + img + ", loanId=" + loanId + ", details="
+                + details + ", transactionHistory=" + transactionHistory + ", alerts=" + alerts + "]";
+    }
+
 }

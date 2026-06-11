@@ -123,4 +123,14 @@ public class Deposit {
     public void setAlerts(List<Alert> alerts) {
         this.alerts = alerts;
     }
+
+    @Override
+    public String toString() {
+        return "Deposit [depositId=" + depositId + ", accountNumber=" + accountNumber + ", type=" + type + ", opendate="
+                + opendate + ", status=" + status + ", relationship=" + relationship + ", memoLedgerBalance="
+                + memoLedgerBalance + ", img=" + img + ", details=" + details + ", transactionHistory="
+                + transactionHistory + ", alerts=" + alerts + "]";
+    }
+
+    
 }

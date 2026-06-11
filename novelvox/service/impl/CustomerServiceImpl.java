@@ -2,11 +2,16 @@ package novelvox.service.impl;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import novelvox.common.PropertyUtil;
 import novelvox.pojo.user.stories.CustomerDetails;
+import novelvox.pojo.user.stories.Loan;
+import novelvox.pojo.user.stories.LoanDetails;
+import novelvox.pojo.user.stories.TransactionHistory;
 import novelvox.service.CustomerService;
 
 public class CustomerServiceImpl implements CustomerService {
@@ -95,6 +100,26 @@ public class CustomerServiceImpl implements CustomerService {
         return customer;    
     }
 
+    @Override
+    public LoanDetails getLoanDetails(String accountNumber, String loanId) {
+        return PropertyUtil.getLoansRecords().stream()
+                .filter(ld -> loanId.equals(ld.getLoanId())
+                        && accountNumber.equals(ld.getDetails().getAccountNumber()))
+                .map(Loan::getDetails)
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public List<TransactionHistory> getLoanTransactions(String accountNumber, String loanId) {
+
+        return PropertyUtil.getLoansRecords().stream()
+                .filter(ld -> loanId.equals(ld.getLoanId())
+                        && accountNumber.equals(ld.getDetails().getAccountNumber()))
+                .findFirst()
+                .map(Loan::getTransactionHistory)
+                .orElse(Collections.emptyList());
+    }
     // @Override
     // public List<Account> getAccounts(String accountNumber, String accountType) {
     //     // TODO Auto-generated method stub
@@ -117,12 +142,6 @@ public class CustomerServiceImpl implements CustomerService {
     // public List<Loan> getLoans(String accountNumber) {
     //     // TODO Auto-generated method stub
     //     throw new UnsupportedOperationException("Unimplemented method 'getLoans'");
-    // }
-
-    // @Override
-    // public Loan getLoanDetails(String accountNumber, String loanId) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getLoanDetails'");
     // }
     
 }

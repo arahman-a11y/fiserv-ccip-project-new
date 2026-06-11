@@ -112,4 +112,54 @@ public class CustomerRPC {
       }
    }
 
+   public static SymXResponse getLoanDetails(String uniqueId, String sequenceId, String environmentId, String accNo, String loanId) {
+      uniqueId = CustomisedFunctions.normalize(uniqueId);
+      sequenceId = CustomisedFunctions.normalize(sequenceId);
+      environmentId = CustomisedFunctions.normalize(environmentId);
+      accNo = CustomisedFunctions.normalize(accNo);
+      loanId = CustomisedFunctions.normalize(loanId);
+      System.out.println("getLoanDetails - sequenceId: " + sequenceId + ", accNo: " + accNo + ", loanId: " + loanId);
+      if (CommonGeneralFunctions.validateLicense()) {
+         String nullCheck = CommonGeneralFunctions.checkNulls("uniqueId", uniqueId, "sequenceId", sequenceId,
+               "environmentId", environmentId, "accNo", accNo, "loanId", loanId);
+         if (!nullCheck.equalsIgnoreCase("SUCCESS")) {
+            return new SymXResponse("400", "Bad Request", sequenceId, nullCheck);
+         } else {
+            return AESEncryption.validateKeys(uniqueId, "SymXData")
+                  && AESEncryption.validateKeys(environmentId, "SymXEnv")
+                        ? new SymXResponse("200", "SUCCESS", sequenceId,
+                              customerService.getLoanDetails(accNo, loanId))
+                        : new SymXResponse("401", "UNAUTHORIZED", sequenceId,
+                              " Issue in valdating UniqueId and EnvironmentId");
+         }
+      } else {
+         return new SymXResponse("403", "License Expired", sequenceId, " Licenses has been expired");
+      }
+   }
+
+   public static SymXResponse getLoanTransactions(String uniqueId, String sequenceId, String environmentId, String accNo, String loanId) {
+      uniqueId = CustomisedFunctions.normalize(uniqueId);
+      sequenceId = CustomisedFunctions.normalize(sequenceId);
+      environmentId = CustomisedFunctions.normalize(environmentId);
+      accNo = CustomisedFunctions.normalize(accNo);
+      loanId = CustomisedFunctions.normalize(loanId);
+      System.out.println("getLoanTransactions - sequenceId: " + sequenceId + ", accNo: " + accNo + ", loanId: " + loanId);
+      if (CommonGeneralFunctions.validateLicense()) {
+         String nullCheck = CommonGeneralFunctions.checkNulls("uniqueId", uniqueId, "sequenceId", sequenceId,
+               "environmentId", environmentId, "accNo", accNo, "loanId", loanId);
+         if (!nullCheck.equalsIgnoreCase("SUCCESS")) {
+            return new SymXResponse("400", "Bad Request", sequenceId, nullCheck);
+         } else {
+            return AESEncryption.validateKeys(uniqueId, "SymXData")
+                  && AESEncryption.validateKeys(environmentId, "SymXEnv")
+                        ? new SymXResponse("200", "SUCCESS", sequenceId,
+                              customerService.getLoanTransactions(accNo, loanId))
+                        : new SymXResponse("401", "UNAUTHORIZED", sequenceId,
+                              " Issue in valdating UniqueId and EnvironmentId");
+         }
+      } else {
+         return new SymXResponse("403", "License Expired", sequenceId, " Licenses has been expired");
+      }
+   }
+
 }

@@ -89,7 +89,7 @@ public class PropertyUtil {
             String json = cleanJsonProperty(getProperty("fpDataObject2"));
             FpDataObject2 fpDataObject2 = OBJECT_MAPPER.readValue(json, FpDataObject2.class);
             logger.info("Loan records loaded successfully");
-            return fpDataObject2.getAccountInformation().getLoans();
+            return fpDataObject2.getAccountInformation().getLoans();         
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse loan records", e);
         }

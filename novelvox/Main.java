@@ -16,8 +16,13 @@ public class Main {
                 // SymXResponse response = CustomerRPC.searchByAccountNumber("uniqueId123", "sequenceId456", "envId789",
                 //                  "80100001236");
                 // SymXResponse response2 = searchBySSN("uniqueId123", "sequenceId456", "envId789", "789-12-3456");
-                SymXResponse response = CustomerRPC.authenticateCustomer("uniqueId123", "sequenceId456", "envId789",
-                                  "456789010");
+                // SymXResponse response = CustomerRPC.authenticateCustomer("uniqueId123", "sequenceId456", "envId789",
+                //                   "456789010");
+                // SymXResponse response = CustomerRPC.getLoanDetails("uniqueId123", "sequenceId456", "envId789",
+                //                   "80100004567","11");
+
+                SymXResponse response = CustomerRPC.getLoanTransactions("uniqueId123", "sequenceId456", "envId789",
+                                        "80100004567","11");
                 System.out.println(response);
         }
 }

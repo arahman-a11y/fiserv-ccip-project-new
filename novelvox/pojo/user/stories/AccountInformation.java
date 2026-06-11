@@ -1,6 +1,5 @@
 package novelvox.pojo.user.stories;
 
-import lombok.Data;
 import java.util.List;
 
 public class AccountInformation {
@@ -26,6 +25,17 @@ public class AccountInformation {
     public void setDebitCards(List<DebitCard> debitCards) {
         this.debitCards = debitCards;
     }
+    public AccountInformation() {
+    }
+    public AccountInformation(List<Deposit> deposits, List<Loan> loans, List<DebitCard> debitCards) {
+        this.deposits = deposits;
+        this.loans = loans;
+        this.debitCards = debitCards;
+    }
+
+    
+
+    
 
     
 }

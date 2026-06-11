@@ -18,5 +18,8 @@ public class Alert {
         this.alert = alert;
     }
 
+    public Alert() {
+    }
+
     
 }

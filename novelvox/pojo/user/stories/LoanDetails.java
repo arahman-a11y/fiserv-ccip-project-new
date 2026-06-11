@@ -15,6 +15,15 @@ public class LoanDetails {
     @JsonProperty("PrincipalBalance")
     private String principalBalance;
 
+    @Override
+    public String toString() {
+        return "LoanDetails [accountNumber=" + accountNumber + ", type=" + type + ", rate=" + rate
+                + ", principalBalance=" + principalBalance + ", currentPaymentDuedate=" + currentPaymentDuedate
+                + ", currentPaymentDueAmount=" + currentPaymentDueAmount + ", accountingBranch=" + accountingBranch
+                + ", status=" + status + ", responsibilityCode=" + responsibilityCode + ", opendate=" + opendate
+                + ", eBankingRestricted=" + eBankingRestricted + "]";
+    }
+
     @JsonProperty("CurrentPaymentDuedate")
     private String currentPaymentDuedate;
 
@@ -32,7 +41,7 @@ public class LoanDetails {
 
     @JsonProperty("OpenDate")
     private String opendate;
-    
+
     @JsonProperty("EBankingRestricted")
     private String eBankingRestricted;
 
@@ -142,4 +151,6 @@ public class LoanDetails {
     public void setEBankingRestricted(String eBankingRestricted) {
         this.eBankingRestricted = eBankingRestricted;
     }
+
+    
 }

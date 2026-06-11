@@ -46,12 +46,23 @@ public class TransactionHistory {
         this.creditAmount = creditAmount;
     }
 
+        public TransactionHistory() {
+    }
+
     public TransactionHistory(String date, String description, String debitAmount, String creditAmount) {
         this.date = date;
         this.description = description;
         this.debitAmount = debitAmount;
         this.creditAmount = creditAmount;
     }
+
+    @Override
+    public String toString() {
+        return "TransactionHistory [date=" + date + ", description=" + description + ", debitAmount=" + debitAmount
+                + ", creditAmount=" + creditAmount + "]";
+    }
+
+    
 
     
 }
