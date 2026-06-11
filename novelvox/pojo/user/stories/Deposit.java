@@ -2,6 +2,8 @@ package novelvox.pojo.user.stories;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Deposit {
 
     private String depositId;
@@ -16,6 +18,27 @@ public class Deposit {
     private DepositDetails details;
     private List<TransactionHistory> transactionHistory;
     private List<Alert> alerts;
+
+    @JsonProperty("detail_AccountNumber")
+    private String detailAccountNumber;
+    @JsonProperty("detail_Type")
+    private String detailType;
+    @JsonProperty("detail_Relationship")
+    private String detailRelationship;
+    @JsonProperty("detail_MemoLedgerBalance")
+    private String detailMemoLedgerBalance;
+    @JsonProperty("detail_AccountingBranch")
+    private String detailAccountingBranch;
+    @JsonProperty("detail_Status")
+    private String detailStatus;
+    @JsonProperty("detail_ResponsibilityCode")
+    private String detailResponsibilityCode;
+    @JsonProperty("detail_Opendate")
+    private String detailOpendate;
+    @JsonProperty("detail_EBankingRestricted")
+    private String detailEBankingRestricted;
+    @JsonProperty("detail_TreasuryNavigator")
+    private String detailTreasuryNavigator;
 
     public Deposit() {
     }
@@ -101,6 +124,12 @@ public class Deposit {
     }
 
     public DepositDetails getDetails() {
+        if (details == null && hasFlatDetails()) {
+            details = new DepositDetails(detailAccountNumber, detailType, detailRelationship,
+                    detailMemoLedgerBalance, detailAccountingBranch, detailStatus,
+                    detailResponsibilityCode, detailOpendate, detailEBankingRestricted,
+                    detailTreasuryNavigator);
+        }
         return details;
     }
 
@@ -133,4 +162,16 @@ public class Deposit {
     }
 
     
+    private boolean hasFlatDetails() {
+        return detailAccountNumber != null
+                || detailType != null
+                || detailRelationship != null
+                || detailMemoLedgerBalance != null
+                || detailAccountingBranch != null
+                || detailStatus != null
+                || detailResponsibilityCode != null
+                || detailOpendate != null
+                || detailEBankingRestricted != null
+                || detailTreasuryNavigator != null;
+    }
 }
