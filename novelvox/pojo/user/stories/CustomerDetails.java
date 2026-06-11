@@ -2,13 +2,14 @@ package novelvox.pojo.user.stories;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CustomerDetails {
 
     @JsonProperty("UniqueID")
     private String uniqueID;
-    
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     @JsonProperty("PhoneNumber")
     private List<String> phoneNumber;
     @JsonProperty("AccountNumber")

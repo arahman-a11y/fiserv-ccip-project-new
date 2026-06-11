@@ -46,6 +46,8 @@ public class PropertyUtil {
     public static List<CustomerDetails> getCustomers() {
         try {
             String json = getProperty("fiserv.dataset");
+            String json2 = getProperty("fpDataObject2");
+            logger.info("Customer dataset loaded successfully");
 
             return OBJECT_MAPPER.readValue(
                     json,
