@@ -1,9 +1,16 @@
 package novelvox.common;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import novelvox.pojo.user.stories.CustomerDetails;
+import novelvox.pojo.user.stories.FpDataObject2;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,10 +23,16 @@ import org.apache.logging.log4j.Logger;
 public class PropertyUtil {
 
  private static final Properties PROPERTIES = new Properties();
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = JsonMapper.builder()
+            .enable(JsonReadFeature.ALLOW_UNQUOTED_FIELD_NAMES)
+            .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .build();
        private static final Logger logger = LogManager.getLogger(PropertyUtil.class);
 
     static {
+        OBJECT_MAPPER.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+
         try (InputStream inputStream =
         PropertyUtil.class.getClassLoader()
         .getResourceAsStream("property/application.properties")) {
@@ -46,8 +59,7 @@ public class PropertyUtil {
     public static List<CustomerDetails> getCustomers() {
         try {
             String json = getProperty("fiserv.dataset");
-            String json2 = getProperty("fpDataObject2");
-            logger.info("Customer dataset loaded successfully");
+         
 
             return OBJECT_MAPPER.readValue(
                     json,
@@ -58,5 +70,28 @@ public class PropertyUtil {
         } catch (Exception e) {
             throw new RuntimeException("Failed to parse customer dataset", e);
         }
+    }
+
+    public static FpDataObject2 getFpDataObject2() {
+        try {
+            String json = cleanJsonProperty(getProperty("fpDataObject2"));
+            FpDataObject2 fpDataObject2 = OBJECT_MAPPER.readValue(json, FpDataObject2.class);
+            logger.info("FpDataObject2 loaded successfully");
+            return fpDataObject2;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse fpDataObject2", e);
+        }
+    }
+
+    private static String cleanJsonProperty(String value) {
+        if (value == null) {
+            throw new RuntimeException("Property value not found");
+        }
+
+        String json = value.trim();
+        if (json.endsWith(";")) {
+            json = json.substring(0, json.length() - 1).trim();
+        }
+        return json;
     }
 }  
