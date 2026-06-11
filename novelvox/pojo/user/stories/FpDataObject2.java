@@ -42,4 +42,12 @@ public class FpDataObject2 {
     public void setAccountInformation(AccountInformation accountInformation) {
         this.accountInformation = accountInformation;
     }
+
+    @Override
+    public String toString() {
+        return "FpDataObject2 [phoneNumber=" + phoneNumber + ", memberInformation=" + memberInformation
+                + ", accountInformation=" + accountInformation + "]";
+    }
+
+    
 }

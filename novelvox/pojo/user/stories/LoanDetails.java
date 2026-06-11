@@ -1,16 +1,39 @@
 package novelvox.pojo.user.stories;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class LoanDetails {
+    @JsonProperty("AccountNumber")
     private String accountNumber;
+
+    @JsonProperty("Type")
     private String type;
+
+    @JsonProperty("Rate")
     private String rate;
+
+    @JsonProperty("PrincipalBalance")
     private String principalBalance;
+
+    @JsonProperty("CurrentPaymentDuedate")
     private String currentPaymentDuedate;
+
+    @JsonProperty("CurrentPaymentDueAmount")
     private String currentPaymentDueAmount;
+    
+    @JsonProperty("AccountingBranch")
     private String accountingBranch;
+
+    @JsonProperty("Status")
     private String status;
+
+    @JsonProperty("ResponsibilityCode")
     private String responsibilityCode;
+
+    @JsonProperty("OpenDate")
     private String opendate;
+    
+    @JsonProperty("EBankingRestricted")
     private String eBankingRestricted;
 
     public LoanDetails() {

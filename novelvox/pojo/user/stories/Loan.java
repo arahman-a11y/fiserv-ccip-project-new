@@ -2,14 +2,28 @@ package novelvox.pojo.user.stories;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Loan {
+    @JsonProperty("AccountNumber")
     private String accountNumber;
+
+    @JsonProperty("Type")
     private String type;
+
+    @JsonProperty("OpenDate")
     private String opendate;
+
+    @JsonProperty("Status")
     private String status;
+
+    @JsonProperty("Relationship")
     private String relationship;
+
+    @JsonProperty("Img")
     private String img;
     private String loanId;
+
     private LoanDetails details;
     private List<TransactionHistory> transactionHistory;
     private List<Alert> alerts;
