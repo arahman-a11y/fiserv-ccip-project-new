@@ -109,4 +109,20 @@ public class DepositDetails {
     public void setTreasuryNavigator(String treasuryNavigator) {
         this.treasuryNavigator = treasuryNavigator;
     }
+
+    @Override
+    public String toString() {
+    return "DepositDetails{" +
+            "accountNumber='" + accountNumber + '\'' +
+            ", type='" + type + '\'' +
+            ", relationship='" + relationship + '\'' +
+            ", memoLedgerBalance='" + memoLedgerBalance + '\'' +
+            ", accountingBranch='" + accountingBranch + '\'' +
+            ", status='" + status + '\'' +
+            ", responsibilityCode='" + responsibilityCode + '\'' +
+            ", opendate='" + opendate + '\'' +
+            ", eBankingRestricted='" + eBankingRestricted + '\'' +
+            ", treasuryNavigator='" + treasuryNavigator + '\'' +
+            '}';
+}
 }

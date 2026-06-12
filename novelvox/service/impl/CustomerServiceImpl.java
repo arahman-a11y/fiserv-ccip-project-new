@@ -4,11 +4,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import novelvox.common.PropertyUtil;
 import novelvox.pojo.user.stories.CustomerDetails;
+import novelvox.pojo.user.stories.Deposit;
+import novelvox.pojo.user.stories.DepositDetails;
+import novelvox.pojo.user.stories.FpDataObject2;
 import novelvox.pojo.user.stories.Loan;
 import novelvox.pojo.user.stories.LoanDetails;
 import novelvox.pojo.user.stories.TransactionHistory;
@@ -125,6 +129,62 @@ public class CustomerServiceImpl implements CustomerService {
     //     // TODO Auto-generated method stub
     //     throw new UnsupportedOperationException("Unimplemented method 'getAccounts'");
     // }
+    @Override
+    public List<Deposit> getDeposits(String phoneNumber) {
+        FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
+        System.out.println("getDeposits FPDataObject2: " + fpDataObject2);
+        if (fpDataObject2 == null || fpDataObject2.getPhoneNumber() == null
+                || !fpDataObject2.getPhoneNumber().equals(phoneNumber)) {
+            return Collections.emptyList();
+        }
+
+        return getDepositsFromFpDataObject2(fpDataObject2);
+    }
+
+    @Override
+    public DepositDetails getDepositDetails(String accountNumber, String depositId) {
+        FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
+          System.out.println("getDepositDetails FPDataObject2: " + fpDataObject2);
+        return getDepositsFromFpDataObject2(fpDataObject2).stream()
+                .filter(deposit -> isMatchingDeposit(deposit, accountNumber, depositId))
+                .peek(deposit -> System.out.println("getDepositDetails Matching Deposit: " + deposit))
+                .map(Deposit::getDetails)
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public List<TransactionHistory> getDepositTransactionHistory(String accountNumber, String depositId) {
+        FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
+          System.out.println("getDepositTransactionHistory FPDataObject2: " + fpDataObject2);
+
+        return getDepositsFromFpDataObject2(fpDataObject2).stream()
+                .filter(deposit -> isMatchingDeposit(deposit, accountNumber, depositId))
+                .peek(deposit -> System.out.println("getDepositTransactionHistory Matching Deposit: " + deposit))
+                .map(Deposit::getTransactionHistory)
+                .findFirst()
+                .orElse(Collections.emptyList());
+    }
+
+    private boolean isMatchingDeposit(Deposit deposit, String accountNumber, String depositId) {
+        if (deposit == null || deposit.getDepositId() == null || !deposit.getDepositId().equals(depositId)) {
+            return false;
+        }
+
+        DepositDetails details = deposit.getDetails();
+        return details != null
+                && details.getAccountNumber() != null
+                && details.getAccountNumber().equals(accountNumber);
+    }
+
+    private List<Deposit> getDepositsFromFpDataObject2(FpDataObject2 fpDataObject2) {
+        if (fpDataObject2 == null || fpDataObject2.getAccountInformation() == null
+                || fpDataObject2.getAccountInformation().getDeposits() == null) {
+            return Collections.emptyList();
+        }
+        System.out.println("getDepositsFromFpDataObject2 Deposits: " + fpDataObject2.getAccountInformation().getDeposits());
+        return fpDataObject2.getAccountInformation().getDeposits();
+    }
 
     // @Override
     // public Account getAccountDetails(String accountNumber, String depositId) {

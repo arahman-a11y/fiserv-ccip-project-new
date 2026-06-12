@@ -21,10 +21,12 @@ public class Main {
                 // SymXResponse response = CustomerRPC.getLoanDetails("uniqueId123", "sequenceId456", "envId789",
                 //                   "80100004567","11");
 
-                SymXResponse response = CustomerRPC.getLoanTransactions("uniqueId123", "sequenceId456", "envId789",
-                                        "80100004567","11");
+                // SymXResponse response = CustomerRPC.getLoanTransactions("uniqueId123", "sequenceId456", "envId789",
+                //                         "80100004567","11");
                 // SymXResponse response = CustomerRPC.getDeposits("uniqueId123", "sequenceId456", "envId789",
-                //                   "11111", null);
+                //                   "22222", null);
+                 SymXResponse response = CustomerRPC.getDepositTransactionHistory("uniqueId123", "sequenceId456", "envId789",
+                                  "80100004567", "1");
                 System.out.println(response);
         }
 }

@@ -3,16 +3,11 @@ package novelvox.pojo.user.stories;
 
 import java.util.List;
 
-
 public class FpDataObject2 {
 
     private String phoneNumber;
     private List<CustomerDetails> memberInformation;
     private AccountInformation accountInformation;
-    // private List<Deposit> deposits;
-    // private List<Loan> loans;
-    // @JsonProperty("debit_cards")
-    // private List<DebitCard> debitCards;
 
     public FpDataObject2() {
     }
@@ -40,13 +35,9 @@ public class FpDataObject2 {
         this.memberInformation = memberInformation;
     }
 
-    // public AccountInformation getAccountInformation() {
-    //     if (accountInformation == null
-    //             && (deposits != null || loans != null || debitCards != null)) {
-    //         accountInformation = new AccountInformation(deposits, loans, debitCards);
-    //     }
-    //     return accountInformation;
-    // }
+    public AccountInformation getAccountInformation() {
+        return accountInformation;
+    }
 
     public void setAccountInformation(AccountInformation accountInformation) {
         this.accountInformation = accountInformation;
@@ -57,5 +48,4 @@ public class FpDataObject2 {
         return "FpDataObject2 [phoneNumber=" + phoneNumber + ", memberInformation=" + memberInformation
                 + ", accountInformation=" + accountInformation + "]";
     }
-    
 }

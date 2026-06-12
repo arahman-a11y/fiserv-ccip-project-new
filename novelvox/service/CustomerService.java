@@ -3,6 +3,8 @@ package novelvox.service;
 import java.util.List;
 
 import novelvox.pojo.user.stories.CustomerDetails;
+import novelvox.pojo.user.stories.Deposit;
+import novelvox.pojo.user.stories.DepositDetails;
 import novelvox.pojo.user.stories.LoanDetails;
 import novelvox.pojo.user.stories.TransactionHistory;
 
@@ -18,13 +20,11 @@ public interface CustomerService {
 
     public CustomerDetails getCustomerInfoByAccountNumber(String accountNumber);
 
-    // public List<Account> getAccounts(String accountNumber, String accountType);
+    public List<Deposit> getDeposits(String phoneNumber);
 
-    // public Account getAccountDetails(String accountNumber, String depositId);
+    public DepositDetails getDepositDetails(String accountNumber, String depositId);
 
-    // public List<Transaction> getTransactions(String accountNumber, String depositId);
-
-    // public List<Loan> getLoans(String accountNumber);
+    public List<TransactionHistory> getDepositTransactionHistory(String accountNumber, String depositId);
 
     public LoanDetails getLoanDetails(String accountNumber, String loanId);
 
