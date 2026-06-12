@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import novelvox.common.PropertyUtil;
 import novelvox.pojo.user.stories.CustomerDetails;
+import novelvox.pojo.user.stories.DebitCard;
 import novelvox.pojo.user.stories.Deposit;
 import novelvox.pojo.user.stories.DepositDetails;
 import novelvox.pojo.user.stories.FpDataObject2;
@@ -184,6 +184,36 @@ public class CustomerServiceImpl implements CustomerService {
         }
         System.out.println("getDepositsFromFpDataObject2 Deposits: " + fpDataObject2.getAccountInformation().getDeposits());
         return fpDataObject2.getAccountInformation().getDeposits();
+    }
+
+      private  List<DebitCard> getDebitCardRecords(String phnNo) {
+         try {
+             FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
+             logger.info("Debit card records loaded successfully");
+             if (fpDataObject2.getPhoneNumber() != null && fpDataObject2.getPhoneNumber().equals(phnNo)) {
+                 return fpDataObject2.getAccountInformation().getDebitCards();
+             } else {
+                 logger.warn("Phone number mismatch: expected {}, found {}", phnNo, fpDataObject2.getPhoneNumber());
+                 return Collections.emptyList();
+             }
+         } catch (Exception e) {
+             throw new RuntimeException("Failed to parse debit card records", e);
+         }
+    }
+
+    @Override
+    public DebitCard getDebitCardsByCardNumber(String phnNo, String cardNumber) {
+
+        return getDebitCardRecords(phnNo).stream()
+                .filter(card -> cardNumber != null && cardNumber.length() == 4 &&
+                     card.getCardNumberMasked() != null && card.getCardNumberMasked().endsWith(cardNumber)
+                    ).findFirst().orElse(null);
+               
+    }
+
+    @Override
+    public List<TransactionHistory> getDebitCardTransactions(String phnNo, String cardNumber) {
+        throw new UnsupportedOperationException("Unimplemented method 'getDebitCardTransactions'");
     }
 
     // @Override
