@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,10 +12,13 @@ import novelvox.common.PropertyUtil;
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.DebitCard;
 import novelvox.pojo.user.stories.DebitCardDetails;
+import novelvox.pojo.user.stories.DebitCardDTO;
 import novelvox.pojo.user.stories.Deposit;
+import novelvox.pojo.user.stories.DepositDTO;
 import novelvox.pojo.user.stories.DepositDetails;
 import novelvox.pojo.user.stories.FpDataObject2;
 import novelvox.pojo.user.stories.Loan;
+import novelvox.pojo.user.stories.LoanDTO;
 import novelvox.pojo.user.stories.LoanDetails;
 import novelvox.pojo.user.stories.TransactionHistory;
 import novelvox.service.CustomerService;
@@ -131,15 +135,44 @@ public class CustomerServiceImpl implements CustomerService {
     //     throw new UnsupportedOperationException("Unimplemented method 'getAccounts'");
     // }
     @Override
-    public List<Deposit> getDeposits(String phoneNumber) {
+    public List<DepositDTO> getDeposits(String phoneNumber) {
         FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
+        
         System.out.println("getDeposits FPDataObject2: " + fpDataObject2);
         if (fpDataObject2 == null || fpDataObject2.getPhoneNumber() == null
                 || !fpDataObject2.getPhoneNumber().equals(phoneNumber)) {
             return Collections.emptyList();
         }
 
-        return getDepositsFromFpDataObject2(fpDataObject2);
+        return getDepositsFromFpDataObject2(fpDataObject2).stream()
+                .map(DepositDTO::toDepositDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LoanDTO> getLoans(String phoneNumber) {
+        FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
+        if (fpDataObject2 == null || fpDataObject2.getPhoneNumber() == null
+                || !fpDataObject2.getPhoneNumber().equals(phoneNumber)) {
+            return Collections.emptyList();
+        }
+
+        return getLoansFromFpDataObject2(fpDataObject2).stream()
+                .map(LoanDTO::toLoanDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DebitCardDTO> getCards(String phoneNumber) {
+        FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
+        if (fpDataObject2 == null || fpDataObject2.getPhoneNumber() == null
+                || !fpDataObject2.getPhoneNumber().equals(phoneNumber)) {
+            return Collections.emptyList();
+        }
+
+        return getCardsFromFpDataObject2(fpDataObject2).stream()
+                .map(DebitCardDTO::toDebitCardDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -233,22 +266,22 @@ public class CustomerServiceImpl implements CustomerService {
         .orElse(Collections.emptyList());      
     }
 
-    // @Override
-    // public Account getAccountDetails(String accountNumber, String depositId) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getAccountDetails'");
-    // }
+    private List<Loan> getLoansFromFpDataObject2(FpDataObject2 fpDataObject2) {
+        if (fpDataObject2 == null || fpDataObject2.getAccountInformation() == null
+                || fpDataObject2.getAccountInformation().getLoans() == null) {
+            return Collections.emptyList();
+        }
+        return fpDataObject2.getAccountInformation().getLoans();
+    }
 
-    // @Override
-    // public List<Transaction> getTransactions(String accountNumber, String depositId) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getTransactions'");
-    // }
+    private List<DebitCard> getCardsFromFpDataObject2(FpDataObject2 fpDataObject2) {
+        if (fpDataObject2 == null || fpDataObject2.getAccountInformation() == null
+                || fpDataObject2.getAccountInformation().getDebitCards() == null) {
+            return Collections.emptyList();
+        }
+        return fpDataObject2.getAccountInformation().getDebitCards();
+    }
 
-    // @Override
-    // public List<Loan> getLoans(String accountNumber) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getLoans'");
-    // }
+    
     
 }

@@ -4,8 +4,10 @@ import java.util.List;
 
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.DebitCardDetails;
-import novelvox.pojo.user.stories.Deposit;
+import novelvox.pojo.user.stories.DebitCardDTO;
+import novelvox.pojo.user.stories.DepositDTO;
 import novelvox.pojo.user.stories.DepositDetails;
+import novelvox.pojo.user.stories.LoanDTO;
 import novelvox.pojo.user.stories.LoanDetails;
 import novelvox.pojo.user.stories.TransactionHistory;
 
@@ -21,11 +23,15 @@ public interface CustomerService {
 
     public CustomerDetails getCustomerInfoByAccountNumber(String accountNumber);
 
-    public List<Deposit> getDeposits(String phoneNumber);
+    public List<DepositDTO> getDeposits(String phoneNumber);
 
     public DepositDetails getDepositDetails(String accountNumber, String depositId);
 
     public List<TransactionHistory> getDepositTransactionHistory(String accountNumber, String depositId);
+
+    public List<LoanDTO> getLoans(String phoneNumber);
+
+    public List<DebitCardDTO> getCards(String phoneNumber);
 
     public LoanDetails getLoanDetails(String accountNumber, String loanId);
 

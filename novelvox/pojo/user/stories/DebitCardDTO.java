@@ -22,6 +22,14 @@ public class DebitCardDTO {
     public DebitCardDTO() {
     }
 
+     public DebitCardDTO(String cardNumberMasked, String type, String openDate, String status, String relationship) {
+        this.cardNumberMasked = cardNumberMasked;
+        this.type = type;
+        this.openDate = openDate;
+        this.status = status;
+        this.relationship = relationship;
+    }
+
     public String getCardNumberMasked() {
         return cardNumberMasked;
     }
@@ -60,5 +68,14 @@ public class DebitCardDTO {
 
     public void setRelationship(String relationship) {
         this.relationship = relationship;
+    }
+
+    public static DebitCardDTO toDebitCardDTO(DebitCard debitCard) {
+        if (debitCard == null) {
+            return null;
+        }
+
+        return new DebitCardDTO(debitCard.getCardNumberMasked(), debitCard.getType(), debitCard.getOpendate(),
+                debitCard.getStatus(), debitCard.getRelationship());
     }
 }

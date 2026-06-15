@@ -112,21 +112,25 @@ public class CustomerRPC {
       }
    }
 
-   public static SymXResponse getDeposits(String uniqueId, String sequenceId, String environmentId, String phoneNumber, String data) {
+   public static SymXResponse getDepositsLoansCards(String uniqueId, String sequenceId, String environmentId, String phoneNumber, String data) {
       uniqueId = CustomisedFunctions.normalize(uniqueId);
       sequenceId = CustomisedFunctions.normalize(sequenceId);
       environmentId = CustomisedFunctions.normalize(environmentId);
       phoneNumber = CustomisedFunctions.normalize(phoneNumber);
+      data = CustomisedFunctions.normalize(data);
       logger.info("{} getDeposits - sequenceId: {}, phoneNumber: {}", "INPUT|", sequenceId, phoneNumber);
       if (CommonGeneralFunctions.validateLicense()) {
          String nullCheck = CommonGeneralFunctions.checkNulls("uniqueId", uniqueId, "sequenceId", sequenceId,
-               "environmentId", environmentId, "phoneNumber", phoneNumber);
+               "environmentId", environmentId, "phoneNumber", phoneNumber, "data", data);
 		if (!nullCheck.equalsIgnoreCase("SUCCESS")) {
             return new SymXResponse("400", "Bad Request", sequenceId, nullCheck);
          } else {
             return AESEncryption.validateKeys(uniqueId, "SymXData")
                   && AESEncryption.validateKeys(environmentId, "SymXEnv")
-                        ? new SymXResponse("200", "SUCCESS", sequenceId, customerService.getDeposits(phoneNumber))
+                        ? data == "deposit" ?
+                         new SymXResponse("200", "SUCCESS", sequenceId, customerService.getDeposits(phoneNumber)) : data == "loan" ?
+                         new SymXResponse("200", "SUCCESS", sequenceId, customerService.getLoans(phoneNumber)) : data == "card" ? 
+                         new SymXResponse("200", "SUCCESS", sequenceId, customerService.getCards(phoneNumber)) : new SymXResponse("400", "Bad Request", sequenceId, "Invalid data parameter. Must be 'deposit', 'loan', or 'card'.") 
                         : new SymXResponse("401", "UNAUTHORIZED", sequenceId,
                               " Issue in valdating UniqueId and EnvironmentId");
          }

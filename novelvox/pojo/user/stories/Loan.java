@@ -22,6 +22,8 @@ public class Loan {
 
     @JsonProperty("Img")
     private String img;
+
+    @JsonProperty("LoanId")
     private String loanId;
 
     private LoanDetails details;
