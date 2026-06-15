@@ -1,5 +1,9 @@
 package novelvox.pojo.user.stories;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class DebitCard {
     private String cardNumberMasked;
     private String type;
@@ -10,11 +14,14 @@ public class DebitCard {
 
     private DebitCardDetails details;
 
+    @JsonProperty("transactionHistory")
+    private List<TransactionHistory> transactions;
+
     public DebitCard() {
     }
 
     public DebitCard(String cardNumberMasked, String type, String opendate, String status, String relationship,
-            String img, DebitCardDetails details) {
+            String img, DebitCardDetails details, List<TransactionHistory> transactions) {
         this.cardNumberMasked = cardNumberMasked;
         this.type = type;
         this.opendate = opendate;
@@ -22,6 +29,7 @@ public class DebitCard {
         this.relationship = relationship;
         this.img = img;
         this.details = details;
+        this.transactions = transactions;
     }
 
     public String getCardNumberMasked() {
@@ -78,5 +86,13 @@ public class DebitCard {
 
     public void setDetails(DebitCardDetails details) {
         this.details = details;
+    }
+
+    public List<TransactionHistory> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<TransactionHistory> transactions) {
+        this.transactions = transactions;
     }
 }

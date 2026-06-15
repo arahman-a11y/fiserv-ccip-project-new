@@ -89,4 +89,14 @@ public class DebitCardDetails {
     public void setResponsibilityCode(String responsibilityCode) {
         this.responsibilityCode = responsibilityCode;
     }
+
+    @Override
+    public String toString() {
+        return "DebitCardDetails [cardNumberMasked=" + cardNumberMasked + ", cardType=" + cardType + ", relationship="
+                + relationship + ", status=" + status + ", onLineLimit=" + onLineLimit + ", pointofSaleLimit="
+                + pointofSaleLimit + ", accountingBranch=" + accountingBranch + ", responsibilityCode="
+                + responsibilityCode + "]";
+    }
+
+    
 }

@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import novelvox.common.PropertyUtil;
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.DebitCard;
+import novelvox.pojo.user.stories.DebitCardDetails;
 import novelvox.pojo.user.stories.Deposit;
 import novelvox.pojo.user.stories.DepositDetails;
 import novelvox.pojo.user.stories.FpDataObject2;
@@ -202,18 +203,34 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public DebitCard getDebitCardsByCardNumber(String phnNo, String cardNumber) {
+    public DebitCardDetails getDebitCardsByCardNumber(String phnNo, String cardNumber) {
 
-        return getDebitCardRecords(phnNo).stream()
-                .filter(card -> cardNumber != null && cardNumber.length() == 4 &&
-                     card.getCardNumberMasked() != null && card.getCardNumberMasked().endsWith(cardNumber)
-                    ).findFirst().orElse(null);
-               
+        List<DebitCard> cards = getDebitCardRecords(phnNo);
+
+        if (cards.isEmpty() || cardNumber == null || cardNumber.length() != 4) {
+            return null;
+        }
+
+      return cards.stream()
+        .filter(card -> card.getCardNumberMasked() != null
+                && card.getCardNumberMasked().endsWith(cardNumber))
+        .findFirst().map( card -> card.getDetails())
+        .orElse(null);  
     }
 
     @Override
     public List<TransactionHistory> getDebitCardTransactions(String phnNo, String cardNumber) {
-        throw new UnsupportedOperationException("Unimplemented method 'getDebitCardTransactions'");
+        List<DebitCard> cards = getDebitCardRecords(phnNo);
+
+        if (cards.isEmpty() || cardNumber == null || cardNumber.length() != 4) {
+            return Collections.emptyList();
+        }
+
+      return cards.stream()
+        .filter(card -> card.getCardNumberMasked() != null
+                && card.getCardNumberMasked().endsWith(cardNumber))
+        .findFirst().map( card -> card.getTransactions())
+        .orElse(Collections.emptyList());      
     }
 
     // @Override

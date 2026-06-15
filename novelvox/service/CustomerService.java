@@ -3,7 +3,7 @@ package novelvox.service;
 import java.util.List;
 
 import novelvox.pojo.user.stories.CustomerDetails;
-import novelvox.pojo.user.stories.DebitCard;
+import novelvox.pojo.user.stories.DebitCardDetails;
 import novelvox.pojo.user.stories.Deposit;
 import novelvox.pojo.user.stories.DepositDetails;
 import novelvox.pojo.user.stories.LoanDetails;
@@ -31,7 +31,7 @@ public interface CustomerService {
 
     public List<TransactionHistory> getLoanTransactions(String accountNumber, String loanId);
 
-    public DebitCard getDebitCardsByCardNumber(String phnNo, String cardNumber);
+    public DebitCardDetails getDebitCardsByCardNumber(String phnNo, String cardNumber);
 
     public List<TransactionHistory> getDebitCardTransactions(String phnNo, String cardNumber);
 

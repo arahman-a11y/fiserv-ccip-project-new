@@ -234,4 +234,51 @@ public class CustomerRPC {
       }
    }
 
+   public static SymXResponse getDebitCardTransactions(String uniqueId, String sequenceId, String environmentId, String phnNo, String cardNumber) {
+      uniqueId = CustomisedFunctions.normalize(uniqueId);
+      sequenceId = CustomisedFunctions.normalize(sequenceId);
+      environmentId = CustomisedFunctions.normalize(environmentId);
+      phnNo = CustomisedFunctions.normalize(phnNo);
+      cardNumber = CustomisedFunctions.normalize(cardNumber);
+      logger.info("{} getDebitCardTransactions - sequenceId: {}, phnNo: {}, cardNumber: {}", "INPUT|", sequenceId, phnNo, cardNumber);
+      if (CommonGeneralFunctions.validateLicense()) {
+         String nullCheck = CommonGeneralFunctions.checkNulls("uniqueId", uniqueId, "sequenceId", sequenceId,
+               "environmentId", environmentId, "phnNo", phnNo, "cardNumber", cardNumber);
+         if (!nullCheck.equalsIgnoreCase("SUCCESS")) {
+            return new SymXResponse("400", "Bad Request", sequenceId, nullCheck);
+         } else {
+            return AESEncryption.validateKeys(uniqueId, "SymXData")
+                  && AESEncryption.validateKeys(environmentId, "SymXEnv")
+                        ? new SymXResponse("200", "SUCCESS", sequenceId, customerService.getDebitCardTransactions(phnNo, cardNumber))
+                        : new SymXResponse("401", "UNAUTHORIZED", sequenceId,
+                              " Issue in valdating UniqueId and EnvironmentId");
+         }
+      } else {
+         return new SymXResponse("403", "License Expired", sequenceId, " Licenses has been expired");
+      }
+   }
+
+   public static SymXResponse getDebitCardInfoByCardNumber(String uniqueId, String sequenceId, String environmentId, String phnNo, String cardNumber) {
+      uniqueId = CustomisedFunctions.normalize(uniqueId);
+      sequenceId = CustomisedFunctions.normalize(sequenceId);
+      environmentId = CustomisedFunctions.normalize(environmentId);
+      phnNo = CustomisedFunctions.normalize(phnNo);
+      cardNumber = CustomisedFunctions.normalize(cardNumber);
+      logger.info("{} getDebitCardInfoByCardNumber - sequenceId: {}, phnNo: {}, cardNumber: {}", "INPUT|", sequenceId, phnNo, cardNumber);
+      if (CommonGeneralFunctions.validateLicense()) {
+         String nullCheck = CommonGeneralFunctions.checkNulls("uniqueId", uniqueId, "sequenceId", sequenceId,
+               "environmentId", environmentId, "phnNo", phnNo, "cardNumber", cardNumber);
+         if (!nullCheck.equalsIgnoreCase("SUCCESS")) {
+            return new SymXResponse("400", "Bad Request", sequenceId, nullCheck);
+         } else {
+            return AESEncryption.validateKeys(uniqueId, "SymXData")
+                  && AESEncryption.validateKeys(environmentId, "SymXEnv")
+                        ? new SymXResponse("200", "SUCCESS", sequenceId, customerService.getDebitCardsByCardNumber(phnNo, cardNumber))
+                        : new SymXResponse("401", "UNAUTHORIZED", sequenceId,
+                              " Issue in valdating UniqueId and EnvironmentId");
+         }
+      } else {
+         return new SymXResponse("403", "License Expired", sequenceId, " Licenses has been expired");
+      }
+   }
 }
