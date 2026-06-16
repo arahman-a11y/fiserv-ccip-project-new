@@ -27,14 +27,16 @@ public class Loan {
     private String loanId;
 
     private LoanDetails details;
+
+    private List<Collateral> collaterals;
     private List<TransactionHistory> transactionHistory;
     private List<Alert> alerts;
 
-    public Loan() {
-    }
+    public Loan() {}
 
-    public Loan(String accountNumber, String type, String opendate, String status, String relationship, String img,
-            LoanDetails details, List<TransactionHistory> transactionHistory, List<Alert> alerts, String loanId) {
+    public Loan(String accountNumber, String type, String opendate, String status, String relationship,
+         String img, LoanDetails details, List<TransactionHistory> transactionHistory, 
+         List<Alert> alerts, String loanId, List<Collateral> collaterals) {
         this.accountNumber = accountNumber;
         this.type = type;
         this.opendate = opendate;
@@ -45,6 +47,7 @@ public class Loan {
         this.transactionHistory = transactionHistory;
         this.alerts = alerts;
         this.loanId = loanId;
+        this.collaterals = collaterals;
     }
 
     public String getAccountNumber() {
@@ -127,11 +130,19 @@ public class Loan {
         this.loanId = loanId;
     }
 
+    public List<Collateral> getCollaterals() {
+        return collaterals;
+    }
+
+    public void setCollaterals(List<Collateral> collaterals) {
+        this.collaterals = collaterals;
+    }
+
     @Override
     public String toString() {
         return "Loan [accountNumber=" + accountNumber + ", type=" + type + ", opendate=" + opendate + ", status="
                 + status + ", relationship=" + relationship + ", img=" + img + ", loanId=" + loanId + ", details="
-                + details + ", transactionHistory=" + transactionHistory + ", alerts=" + alerts + "]";
+                + details + ", transactionHistory=" + transactionHistory + ", alerts=" + alerts + ", collaterals=" + collaterals + "]";
     }
 
 }

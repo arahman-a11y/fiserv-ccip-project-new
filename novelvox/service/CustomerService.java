@@ -2,6 +2,7 @@ package novelvox.service;
 
 import java.util.List;
 
+import novelvox.pojo.user.stories.AccountInformation;
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.DebitCardDetails;
 import novelvox.pojo.user.stories.DebitCardDTO;
@@ -40,6 +41,8 @@ public interface CustomerService {
     public DebitCardDetails getDebitCardsByCardNumber(String phnNo, String cardNumber);
 
     public List<TransactionHistory> getDebitCardTransactions(String phnNo, String cardNumber);
+
+    public AccountInformation getPortfolio(String accNo);
 
 
 

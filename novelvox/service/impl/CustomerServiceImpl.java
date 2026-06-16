@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import novelvox.common.Commons;
 import novelvox.dao.CustomersDao;
+import novelvox.pojo.user.stories.AccountInformation;
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.DebitCard;
 import novelvox.pojo.user.stories.DebitCardDetails;
@@ -280,6 +281,12 @@ public class CustomerServiceImpl implements CustomerService {
             return Collections.emptyList();
         }
         return fpDataObject2.getAccountInformation().getDebitCards();
+    }
+
+    @Override
+    public AccountInformation getPortfolio(String accNo) {
+
+        return null;
     }
 
     
