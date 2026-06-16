@@ -47,4 +47,11 @@ public class LoanDTO {
         return new LoanDTO(loan.getAccountNumber(), loan.getType(), loan.getOpendate(), loan.getStatus(),
                 loan.getRelationship(), loan.getImg(), loan.getLoanId());
     }
+
+    @Override
+    public String toString() {
+        return "LoanDTO [accountNumber=" + accountNumber + ", type=" + type + ", opendate=" + opendate
+                + ", status=" + status + ", relationship=" + relationship + ", img=" + img + ", loanId=" + loanId
+                + "]";
+    }
 }

@@ -78,4 +78,10 @@ public class DebitCardDTO {
         return new DebitCardDTO(debitCard.getCardNumberMasked(), debitCard.getType(), debitCard.getOpendate(),
                 debitCard.getStatus(), debitCard.getRelationship());
     }
+
+    @Override
+    public String toString() {
+        return "DebitCardDTO [cardNumberMasked=" + cardNumberMasked + ", type=" + type + ", openDate=" + openDate
+                + ", status=" + status + ", relationship=" + relationship + "]";
+    }
 }

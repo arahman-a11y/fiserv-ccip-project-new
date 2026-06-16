@@ -5,95 +5,139 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 public class CustomerDetails {
 
-    @JsonProperty("UniqueID")
+    @JsonProperty(
+        "UniqueID")
     private String uniqueID;
     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-    @JsonProperty("PhoneNumber")
+    @JsonProperty(
+        "PhoneNumber")
     private List<String> phoneNumber;
-    @JsonProperty("AccountNumber")
+    @JsonProperty(
+        "AccountNumber")
     private String accountNumber;
-    @JsonProperty("Name")
+    @JsonProperty(
+        "Name")
     private String name;
-    @JsonProperty("Email")
+    @JsonProperty(
+        "Email")
     private String email;
-    @JsonProperty("HomePhone")
+    @JsonProperty(
+        "HomePhone")
     private String homePhone;
-    @JsonProperty("CustomerSince")
+    @JsonProperty(
+        "CustomerSince")
     private String customerSince;
-    @JsonProperty("Value")
+    @JsonProperty(
+        "Value")
     private String value;
-    @JsonProperty("DOB")
+    @JsonProperty(
+        "DOB")
     private String dob;
-    @JsonProperty("CellPhone")
+    @JsonProperty(
+        "CellPhone")
     private String cellPhone;
-    @JsonProperty("Address")
+    @JsonProperty(
+        "Address")
     private String address;
-    @JsonProperty("IDType")
+    @JsonProperty(
+        "IDType")
     private String idType;
-    @JsonProperty("Issuedate")
+    @JsonProperty(
+        "Issuedate")
     private String issuedate;
-    @JsonProperty("SSN")
+    @JsonProperty(
+        "SSN")
     private String ssn;
-    @JsonProperty("MaskedSSN")
+    @JsonProperty(
+        "MaskedSSN")
     private String maskedSSN;
-    @JsonProperty("BusinessPhone")
+    @JsonProperty(
+        "BusinessPhone")
     private String businessPhone;
-    @JsonProperty("IssuedBy")
+    @JsonProperty(
+        "IssuedBy")
     private String issuedBy;
-    @JsonProperty("Expiration")
+    @JsonProperty(
+        "Expiration")
     private String expiration;
-    @JsonProperty("FullName")
+    @JsonProperty(
+        "FullName")
     private String fullName;
-    @JsonProperty("MemberNumber")
+    @JsonProperty(
+        "MemberNumber")
     private String memberNumber;
-    @JsonProperty("CIFNo")
+    @JsonProperty(
+        "CIFNo")
     private String cifNo;
-    @JsonProperty("InterestRate")
+    @JsonProperty(
+        "InterestRate")
     private String interestRate;
-    @JsonProperty("OrgNumber")
+    @JsonProperty(
+        "OrgNumber")
     private String orgNumber;
-    @JsonProperty("PersonNumber")
+    @JsonProperty(
+        "PersonNumber")
     private String personNumber;
-    @JsonProperty("BeneficiaryName")
+    @JsonProperty(
+        "BeneficiaryName")
     private String beneficiaryName;
-    @JsonProperty("Mobile")
+    @JsonProperty(
+        "Mobile")
     private String mobile;
-    @JsonProperty("PassKey")
+    @JsonProperty(
+        "PassKey")
     private String passKey;
-    @JsonProperty("Phrase")
+    @JsonProperty(
+        "Phrase")
     private String phrase;
-    @JsonProperty("Role")
+    @JsonProperty(
+        "Role")
     private String role;
-    @JsonProperty("Ownership")
+    @JsonProperty(
+        "Ownership")
     private String ownership;
-    @JsonProperty("CardNumber")
+    @JsonProperty(
+        "CardNumber")
     private String cardNumber;
-    @JsonProperty("Street")
+    @JsonProperty(
+        "Street")
     private String street;
-    @JsonProperty("City")
+    @JsonProperty(
+        "City")
     private String city;
-    @JsonProperty("State")
+    @JsonProperty(
+        "State")
     private String state;
-    @JsonProperty("Zip")
+    @JsonProperty(
+        "Zip")
     private String zip;
-    @JsonProperty("Switch")
+    @JsonProperty(
+        "Switch")
     private String switchValue;
-    @JsonProperty("AccountsRelated")
+    @JsonProperty(
+        "AccountsRelated")
     private String accountsRelated;
-    @JsonProperty("View")
+    @JsonProperty(
+        "View")
     private String view;
-    @JsonProperty("MothersMaidenName")
+    @JsonProperty(
+        "MothersMaidenName")
     private String mothersMaidenName;
-    @JsonProperty("RiskIndicator")
+    @JsonProperty(
+        "RiskIndicator")
     private String riskIndicator;
-    @JsonProperty("NamePriority")
+    @JsonProperty(
+        "NamePriority")
     private String namePriority;
-    @JsonProperty("Test")
+    @JsonProperty(
+        "Test")
     private String test;
 
-    @JsonProperty("RandomQuestion")
+    @JsonProperty(
+        "RandomQuestion")
     private List<RandomQuestion> randomQuestion;
 
     public CustomerDetails() {
@@ -514,3 +558,4 @@ public class CustomerDetails {
                 + ", namePriority=" + namePriority + ", test=" + test + ", randomQuestion=" + randomQuestion + "]";
     }
 }
+

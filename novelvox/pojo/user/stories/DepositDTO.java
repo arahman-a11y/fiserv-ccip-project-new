@@ -95,4 +95,11 @@ public class DepositDTO {
     public void setMemoLedgerBalance(String memoLedgerBalance) {
         this.memoLedgerBalance = memoLedgerBalance;
     }
+
+    @Override
+    public String toString() {
+        return "DepositDTO [depositId=" + depositId + ", accountNumber=" + accountNumber + ", type=" + type
+                + ", opendate=" + opendate + ", status=" + status + ", relationship=" + relationship
+                + ", memoLedgerBalance=" + memoLedgerBalance + "]";
+    }
 }

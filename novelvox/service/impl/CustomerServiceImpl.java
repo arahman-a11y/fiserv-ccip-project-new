@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import novelvox.common.PropertyUtil;
+import novelvox.dao.CustomersDao;
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.DebitCard;
 import novelvox.pojo.user.stories.DebitCardDetails;
@@ -31,7 +32,8 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDetails searchByPhoneNumber(String phoneNumber) {
 
         logger.info("Searching for customer with phone number: {}", phoneNumber);
-        CustomerDetails customer = PropertyUtil.getCustomers().stream()
+        CustomerDetails customer = CustomersDao.getCustomers().stream()
+                .peek(c -> System.out.println("Checking customer: {}" + c))
                 .filter(c -> c.getPhoneNumber().contains(phoneNumber))
                 .findFirst()
                 .orElse(null);
@@ -43,7 +45,8 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDetails searchBySSN(String ssn) {
 
         logger.info("Searching for customer with SSN: {}", ssn);
-        CustomerDetails customer = PropertyUtil.getCustomers().stream()
+        CustomerDetails customer = CustomersDao.getCustomers().stream()
+                .peek(c -> System.out.println("Checking customer: {}" + c))
                 .filter(c -> c.getSsn().equals(ssn))
                 .findFirst()
                 .orElse(null);
@@ -74,21 +77,21 @@ public class CustomerServiceImpl implements CustomerService {
          System.out.println("Normalized customer info: " + normalizedInput);
         if(isDateOfBirth(customerInfo)) {
             System.out.println("Found customer input AS DOB");
-           response = PropertyUtil.getCustomers()
+           response = CustomersDao.getCustomers()
                             .stream()
                             .anyMatch(c -> c.getSsn() != null
                                     && c.getDob().equals(customerInfo));
         } else if(size == 9) {
             System.out.println("Found customer input AS SSN");
 
-                response = PropertyUtil.getCustomers()
+                response = CustomersDao.getCustomers()
                             .stream()
                             .anyMatch(c -> c.getSsn() != null
                                     && c.getSsn().replaceAll("\\D", "")
                                             .equals(normalizedInput));
         } else{
             System.out.println("Customer input  possibly in PASS KEY(PIN).");
-           response = PropertyUtil.getCustomers()
+           response = CustomersDao.getCustomers()
                             .stream()
                             .anyMatch(c -> c.getPassKey()!= null
                                     && c.getPassKey().equals(customerInfo));
@@ -101,7 +104,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDetails getCustomerInfoByAccountNumber(String accountNumber) {
 
         System.out.println("Searching for customer with accountNumber: " + accountNumber);
-        CustomerDetails customer = PropertyUtil.getCustomers().stream()
+        CustomerDetails customer = CustomersDao.getCustomers().stream()
                 .filter(c -> c.getAccountNumber().equals(accountNumber))
                 .findFirst()
                 .orElse(null);
@@ -146,6 +149,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         return getDepositsFromFpDataObject2(fpDataObject2).stream()
                 .map(DepositDTO::toDepositDTO)
+                .peek(deposit -> System.out.println("Deposits found : " + deposit))
                 .collect(Collectors.toList());
     }
 
@@ -159,6 +163,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         return getLoansFromFpDataObject2(fpDataObject2).stream()
                 .map(LoanDTO::toLoanDTO)
+                .peek(loan -> System.out.println("Loans found : " + loan))
                 .collect(Collectors.toList());
     }
 
@@ -172,6 +177,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         return getCardsFromFpDataObject2(fpDataObject2).stream()
                 .map(DebitCardDTO::toDebitCardDTO)
+                .peek(card -> System.out.println("Cards found : " + card))
                 .collect(Collectors.toList());
     }
 
