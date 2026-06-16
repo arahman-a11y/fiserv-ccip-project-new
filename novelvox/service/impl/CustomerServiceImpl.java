@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import novelvox.common.Commons;
 import novelvox.dao.CustomersDao;
 import novelvox.pojo.user.stories.AccountInformation;
+import novelvox.pojo.user.stories.Collateral;
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.DebitCard;
 import novelvox.pojo.user.stories.DebitCardDetails;
@@ -22,6 +23,7 @@ import novelvox.pojo.user.stories.FpDataObject2;
 import novelvox.pojo.user.stories.Loan;
 import novelvox.pojo.user.stories.LoanDTO;
 import novelvox.pojo.user.stories.LoanDetails;
+import novelvox.pojo.user.stories.SafeDepositBox;
 import novelvox.pojo.user.stories.TransactionHistory;
 import novelvox.service.CustomerService;
 
@@ -284,9 +286,27 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public AccountInformation getPortfolio(String accNo) {
+    public AccountInformation getPortfolio(String accNo, String phnNo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPortfolio'");
+    }
 
-        return null;
+    @Override
+    public Collateral getCollateralDetails(String accNo, String loanId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCollateralDetails'");
+    }
+
+    @Override
+    public CustomerDetails getBeneficiaryCustomerDetails(String accNo, String role) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getBeneficiaryCustomerDetails'");
+    }
+
+    @Override
+    public SafeDepositBox getSafetyDepositBoxDetails(String phnNo, String type) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSafetyDepositBoxDetails'");
     }
 
     

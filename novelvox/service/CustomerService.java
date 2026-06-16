@@ -3,6 +3,7 @@ package novelvox.service;
 import java.util.List;
 
 import novelvox.pojo.user.stories.AccountInformation;
+import novelvox.pojo.user.stories.Collateral;
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.DebitCardDetails;
 import novelvox.pojo.user.stories.DebitCardDTO;
@@ -10,6 +11,7 @@ import novelvox.pojo.user.stories.DepositDTO;
 import novelvox.pojo.user.stories.DepositDetails;
 import novelvox.pojo.user.stories.LoanDTO;
 import novelvox.pojo.user.stories.LoanDetails;
+import novelvox.pojo.user.stories.SafeDepositBox;
 import novelvox.pojo.user.stories.TransactionHistory;
 
 
@@ -42,8 +44,12 @@ public interface CustomerService {
 
     public List<TransactionHistory> getDebitCardTransactions(String phnNo, String cardNumber);
 
-    public AccountInformation getPortfolio(String accNo);
+    public AccountInformation getPortfolio(String accNo, String phnNo);
 
+    public Collateral getCollateralDetails(String accNo, String loanId);
 
+    public CustomerDetails getBeneficiaryCustomerDetails(String accNo, String role);
+
+    public SafeDepositBox getSafetyDepositBoxDetails(String phnNo, String type);
 
 }
