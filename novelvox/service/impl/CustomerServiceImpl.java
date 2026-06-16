@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import novelvox.common.PropertyUtil;
+import novelvox.common.Commons;
 import novelvox.dao.CustomersDao;
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.DebitCard;
@@ -114,7 +114,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public LoanDetails getLoanDetails(String accountNumber, String loanId) {
-        return PropertyUtil.getLoansRecords().stream()
+        return CustomersDao.getFpDataObject2().getAccountInformation().getLoans().stream()
                 .filter(ld -> loanId.equals(ld.getLoanId())
                         && accountNumber.equals(ld.getDetails().getAccountNumber()))
                 .map(Loan::getDetails)
@@ -125,21 +125,16 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<TransactionHistory> getLoanTransactions(String accountNumber, String loanId) {
 
-        return PropertyUtil.getLoansRecords().stream()
+        return CustomersDao.getFpDataObject2().getAccountInformation().getLoans().stream()
                 .filter(ld -> loanId.equals(ld.getLoanId())
                         && accountNumber.equals(ld.getDetails().getAccountNumber()))
                 .findFirst()
                 .map(Loan::getTransactionHistory)
                 .orElse(Collections.emptyList());
     }
-    // @Override
-    // public List<Account> getAccounts(String accountNumber, String accountType) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getAccounts'");
-    // }
     @Override
     public List<DepositDTO> getDeposits(String phoneNumber) {
-        FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
+        FpDataObject2 fpDataObject2 = Commons.fpDataObject2;
         
         System.out.println("getDeposits FPDataObject2: " + fpDataObject2);
         if (fpDataObject2 == null || fpDataObject2.getPhoneNumber() == null
@@ -155,7 +150,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<LoanDTO> getLoans(String phoneNumber) {
-        FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
+        FpDataObject2 fpDataObject2 = Commons.fpDataObject2;
         if (fpDataObject2 == null || fpDataObject2.getPhoneNumber() == null
                 || !fpDataObject2.getPhoneNumber().equals(phoneNumber)) {
             return Collections.emptyList();
@@ -169,7 +164,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<DebitCardDTO> getCards(String phoneNumber) {
-        FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
+        FpDataObject2 fpDataObject2 = Commons.fpDataObject2;
         if (fpDataObject2 == null || fpDataObject2.getPhoneNumber() == null
                 || !fpDataObject2.getPhoneNumber().equals(phoneNumber)) {
             return Collections.emptyList();
@@ -183,8 +178,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public DepositDetails getDepositDetails(String accountNumber, String depositId) {
-        FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
-          System.out.println("getDepositDetails FPDataObject2: " + fpDataObject2);
+        FpDataObject2 fpDataObject2 = Commons.fpDataObject2;
+        System.out.println("getDepositDetails FPDataObject2: " + fpDataObject2);
         return getDepositsFromFpDataObject2(fpDataObject2).stream()
                 .filter(deposit -> isMatchingDeposit(deposit, accountNumber, depositId))
                 .peek(deposit -> System.out.println("getDepositDetails Matching Deposit: " + deposit))
@@ -195,9 +190,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<TransactionHistory> getDepositTransactionHistory(String accountNumber, String depositId) {
-        FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
-          System.out.println("getDepositTransactionHistory FPDataObject2: " + fpDataObject2);
-
+        FpDataObject2 fpDataObject2 = Commons.fpDataObject2;
+        System.out.println("getDepositTransactionHistory FPDataObject2: " + fpDataObject2);
         return getDepositsFromFpDataObject2(fpDataObject2).stream()
                 .filter(deposit -> isMatchingDeposit(deposit, accountNumber, depositId))
                 .peek(deposit -> System.out.println("getDepositTransactionHistory Matching Deposit: " + deposit))
@@ -228,7 +222,7 @@ public class CustomerServiceImpl implements CustomerService {
 
       private  List<DebitCard> getDebitCardRecords(String phnNo) {
          try {
-             FpDataObject2 fpDataObject2 = PropertyUtil.getFpDataObject2();
+             FpDataObject2 fpDataObject2 = Commons.fpDataObject2;
              logger.info("Debit card records loaded successfully");
              if (fpDataObject2.getPhoneNumber() != null && fpDataObject2.getPhoneNumber().equals(phnNo)) {
                  return fpDataObject2.getAccountInformation().getDebitCards();
