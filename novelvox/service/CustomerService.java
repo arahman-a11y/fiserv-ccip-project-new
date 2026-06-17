@@ -11,6 +11,7 @@ import novelvox.pojo.user.stories.DepositDTO;
 import novelvox.pojo.user.stories.DepositDetails;
 import novelvox.pojo.user.stories.LoanDTO;
 import novelvox.pojo.user.stories.LoanDetails;
+import novelvox.pojo.user.stories.Portfolio;
 import novelvox.pojo.user.stories.SafeDepositBox;
 import novelvox.pojo.user.stories.TransactionHistory;
 
@@ -44,7 +45,7 @@ public interface CustomerService {
 
     public List<TransactionHistory> getDebitCardTransactions(String phnNo, String cardNumber);
 
-    public AccountInformation getPortfolio(String accNo, String phnNo);
+    public Portfolio getPortfolio(String accNo, String phnNo);
 
     public Collateral getCollateralDetails(String accNo, String loanId);
 

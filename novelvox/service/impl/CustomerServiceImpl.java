@@ -23,6 +23,7 @@ import novelvox.pojo.user.stories.FpDataObject2;
 import novelvox.pojo.user.stories.Loan;
 import novelvox.pojo.user.stories.LoanDTO;
 import novelvox.pojo.user.stories.LoanDetails;
+import novelvox.pojo.user.stories.Portfolio;
 import novelvox.pojo.user.stories.SafeDepositBox;
 import novelvox.pojo.user.stories.TransactionHistory;
 import novelvox.service.CustomerService;
@@ -286,7 +287,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public AccountInformation getPortfolio(String accNo, String phnNo) {
+    public Portfolio getPortfolio(String accNo, String phnNo) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPortfolio'");
     }
