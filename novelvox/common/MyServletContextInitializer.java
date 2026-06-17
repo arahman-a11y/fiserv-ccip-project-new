@@ -18,7 +18,7 @@ public class MyServletContextInitializer implements ServletContextListener {
       FpDataObject2 fpData = PropertyUtil.getFpDataObject2();
 
       for (CustomerDetails customerData2 : customerData) {
-         System.out.println("Processing customer: " + customerData2);
+         //System.out.println("Processing customer: " + customerData2);
       }
 
       Commons.customerData.clear();
@@ -28,7 +28,7 @@ public class MyServletContextInitializer implements ServletContextListener {
 
    public static void main(String[] args) {
       (new MyServletContextInitializer()).contextInitialized((ServletContextEvent)null);
-      // CustomerRPC customerRPC = new CustomerRPC();
+       CustomerRPC customerRPC = new CustomerRPC();
       // SymXResponse response = CustomerRPC.getDebitCardTransactions("uniqueId123", "sequenceId456", "envId789",
       //                             "22222", "8429");
       // SymXResponse response = CustomerRPC.getDepositsLoansCards("uniqueId123", "sequenceId456", "envId789",
@@ -36,13 +36,15 @@ public class MyServletContextInitializer implements ServletContextListener {
       
       // SymXResponse response = CustomerRPC.searchBySSN("uniqueId123", "sequenceId456", "envId789",
       //                             "123-45-1111");
-
-      //   SymXResponse response = CustomerRPC.getCollateralDetails("uniqueId123", "sequenceId456", "envId789",
-      //                             "11", "80100004567");
-      SymXResponse response = CustomerRPC.getPortfolio("uniqueId123", "sequenceId456", "envId789",
-                                  "22222", "80100001236");
                                   
-      System.out.println(response);
+      // System.out.println(response);
+
+   //   SymXResponse response = customerRPC.getdetailsOfDepositOrCardOrLoanOrSdb("uniqueId123", "sequenceId456",
+   //                 "envId789", "22222", "sdb");
+
+   SymXResponse response = customerRPC.getBeneficiaryCustomerDetails("uniqueId123", "sequenceId456",
+                   "envId789", "80100001236", "Beneficiary");
+     System.out.println(response);
    }
 
    public void contextDestroyed(ServletContextEvent e) {

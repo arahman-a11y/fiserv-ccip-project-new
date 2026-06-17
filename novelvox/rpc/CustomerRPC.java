@@ -112,7 +112,7 @@ public class CustomerRPC {
       }
    }
 
-   public static SymXResponse getDepositsLoansCards(String uniqueId, String sequenceId, String environmentId, String phoneNumber, String data) {
+   public static SymXResponse getdetailsOfDepositOrCardOrLoanOrSdb(String uniqueId, String sequenceId, String environmentId, String phoneNumber, String data) {
       uniqueId = CustomisedFunctions.normalize(uniqueId);
       sequenceId = CustomisedFunctions.normalize(sequenceId);
       environmentId = CustomisedFunctions.normalize(environmentId);
@@ -127,12 +127,22 @@ public class CustomerRPC {
          } else {
             return AESEncryption.validateKeys(uniqueId, "SymXData")
                   && AESEncryption.validateKeys(environmentId, "SymXEnv")
-                        ? data == "deposit" ?
-                         new SymXResponse("200", "SUCCESS", sequenceId, customerService.getDeposits(phoneNumber)) : data == "loan" ?
-                         new SymXResponse("200", "SUCCESS", sequenceId, customerService.getLoans(phoneNumber)) : data == "card" ? 
-                         new SymXResponse("200", "SUCCESS", sequenceId, customerService.getCards(phoneNumber)) : new SymXResponse("400", "Bad Request", sequenceId, "Invalid data parameter. Must be 'deposit', 'loan', or 'card'.") 
+                        ? data.equalsIgnoreCase("deposit")
+                              ? new SymXResponse("200", "SUCCESS", sequenceId,
+                                    customerService.getDeposits(phoneNumber))
+                              : data.equalsIgnoreCase("loan")
+                                    ? new SymXResponse("200", "SUCCESS", sequenceId,
+                                          customerService.getLoans(phoneNumber))
+                                    : data.equalsIgnoreCase("card")
+                                          ? new SymXResponse("200", "SUCCESS", sequenceId,
+                                                customerService.getCards(phoneNumber))
+                                          : data.equalsIgnoreCase("sdb")
+                                                ? new SymXResponse("200", "SUCCESS", sequenceId,
+                                                      customerService.getSafetyDepositBoxDetails(phoneNumber))
+                                                : new SymXResponse("400", "Bad Request", sequenceId,
+                                                      "Invalid data parameter. Must be 'deposit', 'loan', 'card', or 'sdb'.")
                         : new SymXResponse("401", "UNAUTHORIZED", sequenceId,
-                              " Issue in valdating UniqueId and EnvironmentId");
+                              "Issue in validating UniqueId and EnvironmentId");
          }
       } else {
          return new SymXResponse("403", "License Expired", sequenceId, " Licenses has been expired");
@@ -286,7 +296,7 @@ public class CustomerRPC {
       }
    }
 
-      public static SymXResponse getPortfolio(String uniqueId, String sequenceId, String environmentId, String phoneNumber, String accountNumber) {
+   public static SymXResponse getPortfolio(String uniqueId, String sequenceId, String environmentId, String phoneNumber, String accountNumber) {
       uniqueId = CustomisedFunctions.normalize(uniqueId);
       sequenceId = CustomisedFunctions.normalize(sequenceId);
       environmentId = CustomisedFunctions.normalize(environmentId);
@@ -310,7 +320,7 @@ public class CustomerRPC {
       }
    }
 
-      public static SymXResponse getCollateralDetails(String uniqueId, String sequenceId, String environmentId, String loanId, String accountNumber) {
+   public static SymXResponse getCollateralDetails(String uniqueId, String sequenceId, String environmentId, String loanId, String accountNumber) {
       uniqueId = CustomisedFunctions.normalize(uniqueId);
       sequenceId = CustomisedFunctions.normalize(sequenceId);
       environmentId = CustomisedFunctions.normalize(environmentId);
@@ -333,4 +343,29 @@ public class CustomerRPC {
          return new SymXResponse("403", "License Expired", sequenceId, " Licenses has been expired");
       }
    }
+
+   public static SymXResponse getBeneficiaryCustomerDetails(String uniqueId, String sequenceId, String environmentId, String accNo, String role) {
+      uniqueId = CustomisedFunctions.normalize(uniqueId);
+      sequenceId = CustomisedFunctions.normalize(sequenceId);
+      environmentId = CustomisedFunctions.normalize(environmentId);
+      accNo = CustomisedFunctions.normalize(accNo);
+      role = CustomisedFunctions.normalize(role);
+      logger.info("{} getBeneficiaryCustomerDetails - sequenceId: {}, accNo: {}, role: {}", "INPUT|", sequenceId, accNo, role);
+      if (CommonGeneralFunctions.validateLicense()) {
+         String nullCheck = CommonGeneralFunctions.checkNulls("uniqueId", uniqueId, "sequenceId", sequenceId,
+               "environmentId", environmentId, "accNo", accNo, "role", role);
+         if (!nullCheck.equalsIgnoreCase("SUCCESS")) {
+            return new SymXResponse("400", "Bad Request", sequenceId, nullCheck);
+         } else {
+            return AESEncryption.validateKeys(uniqueId, "SymXData")
+                  && AESEncryption.validateKeys(environmentId, "SymXEnv")
+                        ? new SymXResponse("200", "SUCCESS", sequenceId, customerService.getBeneficiaryCustomerDetails(accNo, "Beneficiary"))
+                        : new SymXResponse("401", "UNAUTHORIZED", sequenceId,
+                              " Issue in valdating UniqueId and EnvironmentId");
+         }
+      } else {
+         return new SymXResponse("403", "License Expired", sequenceId, " Licenses has been expired");
+      }
+   }
+
 }

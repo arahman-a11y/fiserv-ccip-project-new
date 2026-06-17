@@ -10,7 +10,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import novelvox.common.Commons;
 import novelvox.dao.CustomersDao;
-import novelvox.pojo.user.stories.AccountInformation;
 import novelvox.pojo.user.stories.Collateral;
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.DebitCard;
@@ -59,16 +58,16 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     private boolean isDateOfBirth(String input) {
-    try {
-        DateTimeFormatter formatter =
-                DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        try {
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-        LocalDate.parse(input, formatter);
-        return true;
-    } catch (Exception e) {
-        return false;
+            LocalDate.parse(input, formatter);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
-}
 
     @Override
     public Boolean authenticateCustomer(String customerInfo) {
@@ -305,16 +304,37 @@ public class CustomerServiceImpl implements CustomerService {
                 .orElse(null);
     }
 
-    @Override
-    public CustomerDetails getBeneficiaryCustomerDetails(String accNo, String role) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBeneficiaryCustomerDetails'");
+    private List<CustomerDetails> getMemberInformation(){
+        return CustomersDao.getFpDataObject2().getMemberInformation();
     }
 
     @Override
-    public SafeDepositBox getSafetyDepositBoxDetails(String phnNo, String type) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSafetyDepositBoxDetails'");
+    public CustomerDetails getBeneficiaryCustomerDetails(String accNo, String role) {
+         System.out.println("Searching for customer with accountNumber: " + accNo + " and role: " + role);
+           var customer = getMemberInformation().stream()
+                .filter(c -> c.getAccountNumber().equals(accNo) && c.getRole().equalsIgnoreCase(role))
+                .findFirst()
+                .orElse(null);
+        return customer;    
+    }
+
+    private  SafeDepositBox getSafeDepositBoxObject(String phnNo) {
+         try {
+             FpDataObject2 fpDataObject2 = Commons.fpDataObject2;
+             if (fpDataObject2.getPhoneNumber() != null && fpDataObject2.getPhoneNumber().equals(phnNo)) {
+                 return fpDataObject2.getAccountInformation().getSafeDepositBox();
+             } else {
+                 logger.warn("Phone number mismatch: expected {}, found {}", phnNo, fpDataObject2.getPhoneNumber());
+                 return null;
+             }
+         } catch (Exception e) {
+             throw new RuntimeException("Failed to parse safe deposit box records", e);
+         }
+    }
+
+    @Override
+    public SafeDepositBox getSafetyDepositBoxDetails(String phnNo) {
+        return getSafeDepositBoxObject(phnNo);
     }
 
     

@@ -51,6 +51,6 @@ public interface CustomerService {
 
     public CustomerDetails getBeneficiaryCustomerDetails(String accNo, String role);
 
-    public SafeDepositBox getSafetyDepositBoxDetails(String phnNo, String type);
+    public SafeDepositBox getSafetyDepositBoxDetails(String phnNo);
 
 }
