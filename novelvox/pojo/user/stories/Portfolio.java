@@ -8,7 +8,7 @@ public class Portfolio {
     private String responsibleBranch;
     private String nickname;
     private String portId;
-    private HolderDetails holderdetails;
+    private HolderDetails holderDetails;
     private DocDistributionOption docDistributionOption;
     
     public String getOpenDt() {
@@ -48,10 +48,10 @@ public class Portfolio {
         this.portId = portId;
     }
     public HolderDetails getHolderdetails() {
-        return holderdetails;
+        return holderDetails;
     }
-    public void setHolderdetails(HolderDetails holderdetails) {
-        this.holderdetails = holderdetails;
+    public void setHolderdetails(HolderDetails holderDetails) {
+        this.holderDetails = holderDetails;
     }
     public DocDistributionOption getDocDistributionOption() {
         return docDistributionOption;
@@ -63,15 +63,23 @@ public class Portfolio {
     public Portfolio() {}
 
     public Portfolio(String openDt, String accountNo, String originatingBranch, String responsibleBranch,
-            String nickname, String portId, HolderDetails holderdetails, DocDistributionOption docDistributionOption) {
+            String nickname, String portId, HolderDetails holderDetails, DocDistributionOption docDistributionOption) {
         this.openDt = openDt;
         this.accountNo = accountNo;
         this.originatingBranch = originatingBranch;
         this.responsibleBranch = responsibleBranch;
         this.nickname = nickname;
         this.portId = portId;
-        this.holderdetails = holderdetails;
+        this.holderDetails = holderDetails;
         this.docDistributionOption = docDistributionOption;
+    }
+
+    @Override
+    public String toString() {
+        return "Portfolio [openDt=" + openDt + ", accountNo=" + accountNo + ", originatingBranch="
+                + originatingBranch + ", responsibleBranch=" + responsibleBranch + ", nickname=" + nickname
+                + ", portId=" + portId + ", holderDetails=" + holderDetails + ", docDistributionOption="
+                + docDistributionOption + "]";
     }
 
     

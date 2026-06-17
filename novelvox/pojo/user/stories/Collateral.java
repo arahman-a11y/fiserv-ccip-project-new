@@ -65,4 +65,12 @@ public class Collateral {
 
     public Collateral() {}
 
+    @Override
+    public String toString() {
+        return "Collateral [collateralId=" + collateralId + ", collateralIdentType=" + collateralIdentType
+                + ", collateralIdentValue=" + collateralIdentValue + ", collateralDesc=" + collateralDesc
+                + ", pledgedAmt=" + pledgedAmt + ", collateralDetailStatus=" + collateralDetailStatus
+                + ", collateralDetailStatusDt=" + collateralDetailStatusDt + "]";
+    }
+
 }

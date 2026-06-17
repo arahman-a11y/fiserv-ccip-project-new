@@ -47,7 +47,7 @@ public interface CustomerService {
 
     public Portfolio getPortfolio(String accNo, String phnNo);
 
-    public Collateral getCollateralDetails(String accNo, String loanId);
+    public List<Collateral> getCollateralDetails(String accNo, String loanId);
 
     public CustomerDetails getBeneficiaryCustomerDetails(String accNo, String role);
 

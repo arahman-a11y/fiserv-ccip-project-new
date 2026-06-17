@@ -28,6 +28,7 @@ public class Loan {
 
     private LoanDetails details;
 
+    @JsonProperty("collateral")
     private List<Collateral> collaterals;
     private List<TransactionHistory> transactionHistory;
     private List<Alert> alerts;

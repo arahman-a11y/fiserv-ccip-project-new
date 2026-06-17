@@ -7,6 +7,8 @@ import jakarta.servlet.ServletContextListener;
 
 import novelvox.pojo.user.stories.CustomerDetails;
 import novelvox.pojo.user.stories.FpDataObject2;
+import novelvox.pojo.user.stories.SymXResponse;
+import novelvox.rpc.CustomerRPC;
 
 public class MyServletContextInitializer implements ServletContextListener {
    PropertyUtil prop = new PropertyUtil();
@@ -34,8 +36,13 @@ public class MyServletContextInitializer implements ServletContextListener {
       
       // SymXResponse response = CustomerRPC.searchBySSN("uniqueId123", "sequenceId456", "envId789",
       //                             "123-45-1111");
+
+      //   SymXResponse response = CustomerRPC.getCollateralDetails("uniqueId123", "sequenceId456", "envId789",
+      //                             "11", "80100004567");
+      SymXResponse response = CustomerRPC.getPortfolio("uniqueId123", "sequenceId456", "envId789",
+                                  "22222", "80100001236");
                                   
-      // System.out.println(response);
+      System.out.println(response);
    }
 
    public void contextDestroyed(ServletContextEvent e) {

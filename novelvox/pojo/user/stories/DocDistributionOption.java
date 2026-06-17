@@ -33,4 +33,10 @@ public class DocDistributionOption {
         this.portfolioValue = portfolioValue;
     }
 
+    @Override
+    public String toString() {
+        return "DocDistributionOption [roi=" + roi + ", recurringDate=" + recurringDate + ", portfolioValue="
+                + portfolioValue + "]";
+    }
+
 }

@@ -36,6 +36,12 @@ public class HolderDetails {
         this.ssn = ssn;
     }
 
+    @Override
+    public String toString() {
+        return "HolderDetails [holderName=" + holderName + ", contactNumber=" + contactNumber + ", ssn=" + ssn
+                + "]";
+    }
+
     
 
     

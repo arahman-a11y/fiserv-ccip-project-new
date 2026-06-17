@@ -288,14 +288,21 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Portfolio getPortfolio(String accNo, String phnNo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPortfolio'");
+        return CustomersDao.getFpDataObject2().getPhoneNumber().equals(phnNo) ? 
+                CustomersDao.getFpDataObject2().getAccountInformation().getPortfolio().getAccountNo().equals(accNo) ? 
+                        CustomersDao.getFpDataObject2().getAccountInformation().getPortfolio() : null
+                 : null;
     }
 
     @Override
-    public Collateral getCollateralDetails(String accNo, String loanId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCollateralDetails'");
+    public List<Collateral> getCollateralDetails(String accNo, String loanId) {
+        return CustomersDao.getFpDataObject2().getAccountInformation().getLoans().stream()
+                .filter(ld -> loanId.equals(ld.getLoanId())
+                        && accNo.equals(ld.getDetails().getAccountNumber()))
+                .peek(e -> System.out.println("loan : " + e))
+                .map(Loan::getCollaterals)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
